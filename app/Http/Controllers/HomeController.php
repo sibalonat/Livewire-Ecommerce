@@ -8,10 +8,11 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    public function __invoke(CartInterface $cart)
+    public function __invoke()
     {
+        // CartInterface $cart
         // dd($cart);
-        $cart->create();
+        // $cart->create();
         $categories = Category::tree()->get()->toTree();
 
         return view('home', [
