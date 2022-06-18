@@ -39,7 +39,8 @@ class ProductSelector extends Component
     public function addToCard(CartInterface $cart)
     {
         $cart->add($this->skuVariant, 1);
-        // dd($this->skuVariant);
+
+        $this->emit('cart.updated');
     }
 
     public function render()

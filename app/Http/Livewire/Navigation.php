@@ -9,6 +9,10 @@ class Navigation extends Component
 {
     // CartInterface $cart
 
+    protected $listeners = [
+        'cart.updated' => '$refresh'
+    ];
+
     public function getCartProperty(CartInterface $cart)
     {
         return $cart;
