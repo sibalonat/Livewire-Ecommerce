@@ -53,10 +53,22 @@ class Cart implements CartInterface
     public function add(Variation $variation, $quantity = 1)
     {
 
+        // dd($this->getVariation($variation));
+
+        if ($existingVariation = $this->getVariation($variation)) {
+            $quantity += $existingVariation->pivot->quantity;
+        }
+
         $this->instance()->variations()->syncWithoutDetaching([
             $variation->id => [
-                'quantity' => $quantity
+                'quantity' => min($quantity, $variation->stockCount())
             ]
         ]);
+    }
+
+
+    public function getVariation(Variation $variation)
+    {
+        return $this->instance()->variations->find($variation->id);
     }
 }
