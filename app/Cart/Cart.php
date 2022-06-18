@@ -3,6 +3,7 @@
 namespace App\Cart;
 
 use App\Models\User;
+use App\Models\Variation;
 use App\Models\Cart as ModelsCart;
 use App\Cart\Contracts\CartInterface;
 use Illuminate\Session\SessionManager;
@@ -47,9 +48,15 @@ class Cart implements CartInterface
             return $this->instance;
         }
         return $this->instance = ModelsCart::whereUuid($this->session->get(config('cart.session.key')))->first();
+    }
 
+    public function add(Variation $variation, $quantity = 1)
+    {
 
-
-        // return ModelsCart::whereUuid($this->session->get(config('cart.session.key')))->first();
+        $this->instance()->variations()->syncWithoutDetaching([
+            $variation->id => [
+                'quantity' => $quantity
+            ]
+        ]);
     }
 }
