@@ -43,6 +43,9 @@ class Cart implements CartInterface
 
     protected function instance()
     {
+        if ($this->instance) {
+            return $this->instance;
+        }
         return $this->instance = ModelsCart::whereUuid($this->session->get(config('cart.session.key')))->first();
 
 
