@@ -1,0 +1,4 @@
+<div>
+
+    {{ $variation->title }}
+</div>

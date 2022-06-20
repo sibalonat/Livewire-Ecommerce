@@ -35,7 +35,11 @@
             <main>
                 {{ $slot }}
             </main>
+
         </div>
+
+        <x-notification/>
+
 
         @livewireScripts
     </body>
