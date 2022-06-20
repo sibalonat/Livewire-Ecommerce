@@ -27,6 +27,7 @@ class Cart extends Model
     public function variations()
     {
         return $this->belongsToMany(Variation::class)
-        ->withPivot('quantity');
+        ->withPivot('quantity')
+        ->orderBy('id');
     }
 }

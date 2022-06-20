@@ -7,6 +7,9 @@ use Livewire\Component;
 
 class Cart extends Component
 {
+    protected $listeners = [
+        'cart.updated' => '$refresh'
+    ];
 
     public function render(CartInterface $cart)
     {

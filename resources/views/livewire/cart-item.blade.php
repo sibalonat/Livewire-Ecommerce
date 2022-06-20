@@ -28,7 +28,9 @@
                     @endfor
                 </select>
             </div>
-            <button class="text-sm">remove</button>
+            <button class="text-sm" wire:click='remove'>
+                remove
+            </button>
         </div>
     </div>
     {{-- {{ $variation->title }} --}}
