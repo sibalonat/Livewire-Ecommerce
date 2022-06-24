@@ -16,7 +16,6 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
     use Searchable;
 
-
     public function formattedPrice()
     {
         return money($this->price);
@@ -37,5 +36,21 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaCollection('default')
         ->useFallbackUrl(url('/storage/no-product-image.png'));
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'price' => $this->price,
+            'category_ids' => $this->categories->pluck('id'),
+        ];
     }
 }
