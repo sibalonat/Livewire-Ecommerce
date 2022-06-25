@@ -12,6 +12,6 @@
             {{ $category->title }}
         </h2>
     </x-slot>
-    <livewire:product-browser />
-    
+    <livewire:product-browser :category="$category" />
+
 </x-app-layout>
