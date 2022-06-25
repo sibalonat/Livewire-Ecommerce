@@ -16,6 +16,12 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
     use Searchable;
 
+
+    // public function setPriceAttribute($value)
+    // {
+    //     $this->attributes['price'] = $value * 100;
+    // }
+
     public function formattedPrice()
     {
         return money($this->price);
@@ -29,13 +35,13 @@ class Product extends Model implements HasMedia
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb200x200')
-        ->fit(Manipulations::FIT_CROP, 200, 200);
+            ->fit(Manipulations::FIT_CROP, 200, 200);
     }
 
-    public function registerMediaCollections() : void
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('default')
-        ->useFallbackUrl(url('/storage/no-product-image.png'));
+            ->useFallbackUrl(url('/storage/no-product-image.png'));
     }
 
     public function categories()
@@ -46,18 +52,20 @@ class Product extends Model implements HasMedia
     public function toSearchableArray()
     {
         // $this->variations->groupBy('type');
-        return array_merge([
-            'id' => $this->id,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'price' => $this->price,
-            'category_ids' => $this->categories->pluck('id')->toArray(),
-            // 'category_ids' => $this->load('categories')->categories->pluck('id')->toArray(),
-        ], $this->variations->groupBy('type')
-            ->mapWithKeys(fn($variation, $key) => [
-                $key => $variation->pluck('title')
-            ])
-            ->toArray()
+        return array_merge(
+            [
+                'id' => $this->id,
+                'title' => $this->title,
+                'slug' => $this->slug,
+                'price' => $this->price,
+                'category_ids' => $this->categories->pluck('id')->toArray(),
+                // 'category_ids' => $this->load('categories')->categories->pluck('id')->toArray(),
+            ],
+            $this->variations->groupBy('type')
+                ->mapWithKeys(fn ($variation, $key) => [
+                    $key => $variation->pluck('title')
+                ])
+                ->toArray()
         );
     }
 }

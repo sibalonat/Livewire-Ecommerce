@@ -11,27 +11,72 @@ class ProductBrowser extends Component
 {
     public $category;
 
+    public $queryFilters = [];
+    public $priceRange = [
+        'max' => null
+    ];
+
+    public function mount()
+    {
+        $this->queryFilters = $this->category->products->pluck('variations')
+        ->flatten()
+        ->groupBy('type')
+        ->keys()
+        ->mapWithKeys(fn($key) => [$key => []]);
+    }
 
     public function render()
     {
-        // $products = Product::search('')->get();
-
         $search = Product::search('', function($meilisearch, string $query, array $options) {
-            // $options['filter'] = 'category_ids = ' . $this->category->id;
 
-            $options['facetsDistribution'] = ['ngjyra'];
+            $filters = collect($this->queryFilters)
+            ->filter(fn($filter) => !empty($filter))
+            ->recursive()
+            ->map(function($value, $key) {
+                return $value->map(fn ($value) => $key . ' = "' . $value . '"');
+            })
+            ->flatten()
+            ->join(' AND ');
 
+            $options['facetsDistribution'] = ['ngjyra', 'materiali'];
+
+            $options['filter'] = null;
+
+            if ($filters) {
+                $options['filter'] = $filters;
+            }
+
+            if ($this->priceRange['max']) {
+                $options['filter'] .= (isset($options['filter']) ? ' AND ' : '') . 'price <= ' . $this->priceRange['max'] ;
+                // $options['filter'] .= $filters;
+            }
             return $meilisearch->search($query, $options);
-            // return $meilisearch->search($query);
         })->raw();
 
         $products = $this->category->products->find(collect($search['hits'])->pluck('id'));
 
         // dd($products);
 
+        $maxPrice = $this->category->products->max('price');
+
+        $this->priceRange['max'] = $this->priceRange['max'] ?: $maxPrice;
+        //  $maxPrice;
+
         return view('livewire.product-browser', [
             'products' => $products,
-            'filters' => $search['facetsDistribution']
+            'filters' => $search['facetsDistribution'],
+            'maxPrice' => $maxPrice
         ]);
     }
 }
+
+
+
+        // $products = Product::search('')->get();
+        // $options['filter'] = 'category_ids = ' . $this->category->id;
+
+        // dd($filters);
+        // ->toArray();
+        // dd($filters);
+        // return $value->map(fn ($value) => $key . ' = "' . $value . '" AND');
+        // return $meilisearch->search($query);
