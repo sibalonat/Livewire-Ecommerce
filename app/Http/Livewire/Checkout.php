@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Cart\Contracts\CartInterface;
 use Livewire\Component;
 
 class Checkout extends Component
 {
-    public function render()
+    public function render(CartInterface $cart)
     {
-        return view('livewire.checkout');
+        return view('livewire.checkout', [
+            'cart' => $cart
+        ]);
     }
 }
