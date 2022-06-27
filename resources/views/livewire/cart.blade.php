@@ -22,7 +22,7 @@
                 </div>
             </div>
             {{-- <a href="/checkout">Checkout</a> --}}
-           <x-button-anchor>Checkout</x-button-anchor>
+           <x-button-anchor href="/checkout">Checkout</x-button-anchor>
 
         </div>
     </div>
