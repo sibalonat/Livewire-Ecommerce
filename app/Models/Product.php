@@ -22,6 +22,11 @@ class Product extends Model implements HasMedia
     //     $this->attributes['price'] = $value * 100;
     // }
 
+    public static function booted()
+    {
+        
+    }
+
     public function formattedPrice()
     {
         return money($this->price);

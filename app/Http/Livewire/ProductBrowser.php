@@ -38,7 +38,8 @@ class ProductBrowser extends Component
             ->flatten()
             ->join(' AND ');
 
-            $options['facetsDistribution'] = ['ngjyra', 'materiali'];
+
+            $options['facetsDistribution'] = ['color', 'size'];
 
             $options['filter'] = null;
 
@@ -48,19 +49,16 @@ class ProductBrowser extends Component
 
             if ($this->priceRange['max']) {
                 $options['filter'] .= (isset($options['filter']) ? ' AND ' : '') . 'price <= ' . $this->priceRange['max'] ;
-                // $options['filter'] .= $filters;
             }
             return $meilisearch->search($query, $options);
         })->raw();
 
         $products = $this->category->products->find(collect($search['hits'])->pluck('id'));
 
-        // dd($products);
 
         $maxPrice = $this->category->products->max('price');
 
         $this->priceRange['max'] = $this->priceRange['max'] ?: $maxPrice;
-        //  $maxPrice;
 
         return view('livewire.product-browser', [
             'products' => $products,
