@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\LiveScope;
 use Laravel\Scout\Searchable;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -17,14 +18,11 @@ class Product extends Model implements HasMedia
     use Searchable;
 
 
-    // public function setPriceAttribute($value)
-    // {
-    //     $this->attributes['price'] = $value * 100;
-    // }
+
 
     public static function booted()
     {
-        
+        static::addGlobalScope(new LiveScope());
     }
 
     public function formattedPrice()
