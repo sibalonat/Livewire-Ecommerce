@@ -36,9 +36,9 @@
                 @foreach ($cart->contents() as $product)
                     <div class="flex items-start py-3 border-b">
                         <div class="w-16 mr-4">
-                            <img src="{{ $variation->getFirstMediaUrl('default', 'thumb200x200') }}" class="w-16" alt="">
+                            <img src="{{ $variation->getFirstMediaUrl('default', 'thumb200x200') }}" class="w-16"
+                                alt="">
                         </div>
-
                         <div class="space-y-2">
                             <div>
                                 <div class="font-semibold">
@@ -48,22 +48,21 @@
                                     <div>{{ $variation->title }}</div>
                                     <div class="flex items-center text-sm">
                                         <div class="mr-1 font-semibold">
-                                            Quantity: {{ $variation->pivot->quantity }} <span class="mx-1 text-gray-400">/</span>
+                                            Quantity: {{ $variation->pivot->quantity }} <span
+                                                class="mx-1 text-gray-400">/</span>
                                         </div>
-                                        @foreach ($variation->ancestorsAndSelf as $item)
-
+                                        @foreach ($variation->ancestorsAndSelf as $ancestor)
+                                            {{ $ancestor->title }} @if (!$loop->last)
+                                                <span class="mx-1 text-gray-400">/</span>
+                                            @endif
                                         @endforeach
-                                        Ancestor <span class="mx-1 text-gray-400">/</span>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 @endforeach
             </div>
         </div>
-
     </div>
 </form>
