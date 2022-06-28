@@ -6,10 +6,13 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\ShippingType;
 use App\Cart\Contracts\CartInterface;
+use App\Models\ShippingAddress;
 
 class Checkout extends Component
 {
     public $shippingId;
+
+    public $shippingAddress;
 
     public $shippingTypes;
 
@@ -48,7 +51,9 @@ class Checkout extends Component
     {
         $this->validate();
 
-        dd('created');
+        $this->shippingAddress = ShippingAddress::firstOrCreate($this->shippingForm);
+
+        // dd('created');
 
     }
 
