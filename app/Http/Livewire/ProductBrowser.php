@@ -39,7 +39,7 @@ class ProductBrowser extends Component
             ->join(' AND ');
 
 
-            $options['facetsDistribution'] = ['color', 'size'];
+            $options['facetsDistribution'] = ['ngjyra', 'materiali'];
 
             $options['filter'] = null;
 

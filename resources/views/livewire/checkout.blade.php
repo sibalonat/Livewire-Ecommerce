@@ -3,36 +3,42 @@
         <div class="self-start col-span-3 p-6 space-y-6 bg-white border-b border-gray-200">
 
             @guest
-            <div class="space-y-3">
-                <div class="text-lg font-semibold"> Account details </div>
-                {{ print_r( $accountForm )}}
-                <label for="email">Email</label>
-                <x-input id="email" class="block w-full mt-1" type="text" name="email" wire:model.defer='accountForm.email' />
-                @error('accountForm.email')
-                <div class="mt-2 font-semibold text-red-500">
-                    {{ $message }}
+                <div class="space-y-3">
+                    <div class="text-lg font-semibold"> Account details </div>
+                    {{ print_r($accountForm) }}
+                    <label for="email">Email</label>
+                    <x-input id="email" class="block w-full mt-1" type="text" name="email"
+                        wire:model.defer='accountForm.email' />
+                    @error('accountForm.email')
+                        <div class="mt-2 font-semibold text-red-500">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                @enderror
-            </div>
             @endguest
 
 
+            @if ($this->userShippingAddresses)
             <div class="space-y-3">
                 <div class="text-lg font-semibold"> Shipping </div>
-                <x-select class="w-full">
-                    <option value="">Chose pre-saved address</option>
-                    <option value="">Chose pre-saved address</option>
+                <x-select class="w-full" wire:model='userShippingAddressId'>
+                    <option value="" disabled>Chose pre-saved address</option>
+                    @foreach ($this->userShippingAddresses as $address)
+                        <option value="{{ $address->id }}">{{ $address->formattedAddress() }}</option>
+                    @endforeach
                 </x-select>
             </div>
+            @endif
 
             <div class="space-y-3">
                 <div>
                     <label for="address">Address</label>
-                    <x-input id="address" class="block w-full mt-1" type="text" name="address" wire:model.defer='accountForm.address' />
+                    <x-input id="address" class="block w-full mt-1" type="text" name="address"
+                        wire:model.defer='shippingForm.address' />
                     @error('accountForm.address')
-                    <div class="mt-2 font-semibold text-red-500">
-                        {{ $message }}
-                    </div>
+                        <div class="mt-2 font-semibold text-red-500">
+                            {{ $message }}
+                        </div>
                     @enderror
                     {{-- <div class="mt-2 font-semibold text-red-500">An error occured</div> --}}
                 </div>
@@ -41,21 +47,23 @@
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-1">
                     <label for="city">City</label>
-                    <x-input id="city" class="block w-full mt-1" type="text" wire:model.defer='accountForm.city' />
+                    <x-input id="city" class="block w-full mt-1" type="text"
+                        wire:model.defer='shippingForm.city' />
                     @error('accountForm.city')
-                    <div class="mt-2 font-semibold text-red-500">
-                        {{ $message }}
-                    </div>
+                        <div class="mt-2 font-semibold text-red-500">
+                            {{ $message }}
+                        </div>
                     @enderror
                     {{-- <div class="mt-2 font-semibold text-red-500">An error occured</div> --}}
                 </div>
                 <div class="col-span-1">
                     <label for="postal">Postal</label>
-                    <x-input id="address" class="block w-full mt-1" type="text" wire:model.defer='accountForm.postcode' />
+                    <x-input id="address" class="block w-full mt-1" type="text"
+                        wire:model.defer='shippingForm.postcode' />
                     @error('accountForm.postcode')
-                    <div class="mt-2 font-semibold text-red-500">
-                        {{ $message }}
-                    </div>
+                        <div class="mt-2 font-semibold text-red-500">
+                            {{ $message }}
+                        </div>
                     @enderror
                     {{-- <div class="mt-2 font-semibold text-red-500">An error occured</div> --}}
                 </div>
@@ -67,7 +75,8 @@
                 <div class="space-y-1">
                     <x-select class="w-full" wire:model='shippingId'>
                         @foreach ($shippingTypes as $shipping)
-                            <option value="{{ $shipping->id }}">{{ $shipping->title }} ({{ $shipping->formattedPrice() }})</option>
+                            <option value="{{ $shipping->id }}">{{ $shipping->title }}
+                                ({{ $shipping->formattedPrice() }})</option>
                         @endforeach
                     </x-select>
                 </div>
