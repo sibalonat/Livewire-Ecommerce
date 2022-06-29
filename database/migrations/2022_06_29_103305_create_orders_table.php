@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->foreignIdFor(ShippingType::class)->constrained();
             $table->integer('subtotal');
             $table->timestamp('placed_at');
+            $table->timestamp('packaged_at');
             $table->timestamp('shipped_at');
             $table->timestamps();
         });
