@@ -10,6 +10,14 @@ class Order extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'email',
+        'subtotal',
+        'placed_at',
+        'packaged_at',
+        'shipped_at',
+    ];
+
     public $timestamps = [
         'placed_at',
         'packaged_at',
