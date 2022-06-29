@@ -22,7 +22,7 @@
             <div class="space-y-3">
                 <div class="text-lg font-semibold"> Shipping </div>
                 <x-select class="w-full" wire:model='userShippingAddressId'>
-                    <option value="" disabled>Chose pre-saved address</option>
+                    <option value="">Chose pre-saved address</option>
                     @foreach ($this->userShippingAddresses as $address)
                         <option value="{{ $address->id }}">{{ $address->formattedAddress() }}</option>
                     @endforeach
@@ -70,7 +70,7 @@
             </div>
 
             <div class="space-y-3">
-                <div class="font-semibold text-lg">Delivery</div>
+                <div class="text-lg font-semibold">Delivery</div>
 
                 <div class="space-y-1">
                     <x-select class="w-full" wire:model='shippingId'>
@@ -115,16 +115,16 @@
                     </div>
                 @endforeach
             </div>
-            <div class="space-y-2 flex items-center justify-between">
+            <div class="flex items-center justify-between space-y-2">
                 <div class="font-bold">Subtotal </div>
                 <h1 class="font-semibold">{{ $cart->formattedSubtotal() }}</h1>
             </div>
-            <div class="space-y-1 flex items-center justify-between">
+            <div class="flex items-center justify-between space-y-1">
                 <div class="font-bold">Shipping ({{ $this->shippingType->title }}) </div>
                 <h1 class="font-semibold">{{ $this->shippingType->formattedPrice() }}</h1>
 
             </div>
-            <div class="space-y-1 flex items-center justify-between">
+            <div class="flex items-center justify-between space-y-1">
                 <div class="font-bold">Total </div>
                 <h1 class="font-semibold">{{ money($this->total) }}</h1>
             </div>

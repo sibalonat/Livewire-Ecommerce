@@ -24,7 +24,6 @@ class RedirectIfCartEmpty
             return redirect()->route('cart');
         }
 
-
         return $next($request);
     }
 }
