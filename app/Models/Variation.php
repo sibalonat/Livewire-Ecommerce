@@ -64,4 +64,9 @@ class Variation extends Model implements HasMedia
         ->useFallbackUrl(url('/storage/no-product-image.png'));
     }
 
+    public function order()
+    {
+        return $this->belongsToMany(Variation::class);
+    }
+
 }

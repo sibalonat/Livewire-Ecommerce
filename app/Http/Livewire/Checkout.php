@@ -77,6 +77,23 @@ class Checkout extends Component
 
         $order->save();
 
+        $order->variations()->attach(
+            $cart->contents()->mapWithKeys(function($variation) {
+                return [
+                    $variation->id => [
+                        'quantity' => $variation->pivot->quantity
+                    ]
+                ];
+            })
+            ->toArray()
+        );
+
+        $cart->contents()->each(function($variation) {
+            $variation->stocks()->create([
+                'amount' => 0 - $variation->pivot->quantity
+            ]);
+        });
+
         // dd($order);
         // dd('created');
     }
