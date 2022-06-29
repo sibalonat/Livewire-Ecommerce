@@ -152,4 +152,10 @@ class Cart implements CartInterface
     {
         return $this->instance()->variations->find($variation->id);
     }
+
+
+    public function removeAll()
+    {
+        $this->instance()->variations()->detach();
+    }
 }
