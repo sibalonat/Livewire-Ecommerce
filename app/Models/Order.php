@@ -4,8 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Str;
 
 class Order extends Model
 {
     use HasFactory;
+
+    public $timestamps = [
+        'placed_at',
+        'packaged_at',
+        'shipped_at',
+    ];
+
+    public static function booted()
+    {
+        static::creating(function(Order $order) {
+            $order->placed_at = now();
+            $order->uuid = (string) Str::uuid();
+        });
+    }
+
+
 }
