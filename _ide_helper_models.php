@@ -78,6 +78,46 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property string $email
+ * @property int|null $user_id
+ * @property int $shipping_address_id
+ * @property int $shipping_type_id
+ * @property int $subtotal
+ * @property string $placed_at
+ * @property string|null $packaged_at
+ * @property string|null $shipped_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\ShippingAddress $shippingAddress
+ * @property-read \App\Models\ShippingType $shippingType
+ * @property-read \App\Models\User|null $user
+ * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection|\App\Models\Variation[] $variations
+ * @property-read int|null $variations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePackagedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePlacedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereShippedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereShippingAddressId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereShippingTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereSubtotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUuid($value)
+ */
+	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Product
  *
  * @property int $id
@@ -108,6 +148,53 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  */
 	class Product extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ShippingAddress
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $address
+ * @property string $city
+ * @property string $postcode
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingAddress whereUserId($value)
+ */
+	class ShippingAddress extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ShippingType
+ *
+ * @property int $id
+ * @property string $title
+ * @property int $price
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ShippingType whereUpdatedAt($value)
+ */
+	class ShippingType extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -145,6 +232,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ShippingAddress[] $shippingAddresses
+ * @property-read int|null $shipping_addresses_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -174,13 +265,14 @@ namespace App\Models{
  * @property string $type
  * @property string|null $sku
  * @property int|null $parent_id
- * @property int|null $order
+ * @property \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection|Variation[] $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection|Variation[] $children
  * @property-read int|null $children_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
+ * @property-read int|null $order_count
  * @property-read Variation|null $parent
  * @property-read \App\Models\Product $product
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Stock[] $stocks

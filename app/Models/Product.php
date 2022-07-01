@@ -18,8 +18,6 @@ class Product extends Model implements HasMedia
     use Searchable;
 
 
-
-
     public static function booted()
     {
         static::addGlobalScope(new LiveScope());

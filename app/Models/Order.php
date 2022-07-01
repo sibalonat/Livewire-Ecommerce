@@ -52,4 +52,9 @@ class Order extends Model
         ->withTimestamps();
     }
 
+    public function formattedSubtotal()
+    {
+        return money($this->subtotal);
+    }
+
 }
