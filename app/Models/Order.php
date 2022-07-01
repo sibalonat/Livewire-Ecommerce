@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+// use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Str;
@@ -9,6 +10,18 @@ use Str;
 class Order extends Model
 {
     use HasFactory;
+
+    protected $statuses = [
+        'placed_at',
+        'packaged_at',
+        'shipped_at',
+    ];
+
+    protected $casts = [
+        'placed_at' => 'datetime',
+        'packaged_at' => 'datetime',
+        'shipped_at' => 'datetime',
+    ];
 
     public $fillable = [
         'email',
@@ -24,12 +37,20 @@ class Order extends Model
         'shipped_at',
     ];
 
+
+
     public static function booted()
     {
         static::creating(function(Order $order) {
             $order->placed_at = now();
             $order->uuid = (string) Str::uuid();
         });
+    }
+
+    public function status()
+    {
+        return collect($this->statuses)
+        ->last(fn($status) => filled($this->{$status}));
     }
 
     public function user()

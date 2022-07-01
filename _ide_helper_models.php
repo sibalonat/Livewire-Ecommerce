@@ -87,9 +87,9 @@ namespace App\Models{
  * @property int $shipping_address_id
  * @property int $shipping_type_id
  * @property int $subtotal
- * @property string $placed_at
- * @property string|null $packaged_at
- * @property string|null $shipped_at
+ * @property \Illuminate\Support\Carbon $placed_at
+ * @property \Illuminate\Support\Carbon|null $packaged_at
+ * @property \Illuminate\Support\Carbon|null $shipped_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ShippingAddress $shippingAddress

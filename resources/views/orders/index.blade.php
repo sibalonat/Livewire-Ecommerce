@@ -17,7 +17,20 @@
                             <div>{{ $order->formattedSubtotal() }}</div>
                             <div>{{ $order->shippingType->title }}</div>
                             <div>{{ $order->created_at->toDateTimeString() }}</div>
-                            <div>order status</div>
+                            <div>
+                                <span class="inline-flex items-center px-3 py-1 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full">
+                                    {{-- {{ $order->status() }} --}}
+                                    @if ($order->status() === 'placed_at')
+                                    order placed
+                                    @endif
+                                    @if ($order->status() === 'packaged_at')
+                                    order packed
+                                    @endif
+                                    @if ($order->status() === 'shipped_at')
+                                    order shipped {{ $order->shipped_at->toDateTimeString() }}
+                                    @endif
+                                </span>
+                            </div>
                         </div>
                         @foreach ($order->variations as $variation)
                             <div class="flex items-center py-3 space-y-2 border-b last:border-0 last:pb-0">
