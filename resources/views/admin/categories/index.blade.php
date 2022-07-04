@@ -7,7 +7,6 @@
                         <livewire:categories-creation>
                         {{-- <livewire:product-gallery :product="$product" /> --}}
                     </div>
-
                 </div>
             </div>
         </div>

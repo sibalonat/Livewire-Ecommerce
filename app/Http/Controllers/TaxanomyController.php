@@ -8,6 +8,6 @@ class TaxanomyController extends Controller
 {
     public function index()
     {
-        return view();
+        return view('admin.categories.index');
     }
 }
