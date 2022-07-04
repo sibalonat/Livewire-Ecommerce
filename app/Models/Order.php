@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $statuses = [
+    public $statuses = [
         'placed_at',
         'packaged_at',
         'shipped_at',
