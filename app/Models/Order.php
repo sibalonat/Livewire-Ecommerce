@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use DateTime;
+
+use App\Models\Presenter\OrderPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Str;
@@ -76,6 +78,11 @@ class Order extends Model
     public function formattedSubtotal()
     {
         return money($this->subtotal);
+    }
+
+    public function presenter()
+    {
+        return new OrderPresenter($this);
     }
 
 }

@@ -1,5 +1,5 @@
 @component('mail::message')
-# Your order ${{ $order->id }} has been updated
+# Your order {{ $order->id }} has been updated
 
 The body of your message.
 

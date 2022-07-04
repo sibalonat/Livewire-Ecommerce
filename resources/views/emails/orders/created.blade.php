@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+# Your Order has been created
 
 The body of your message.
 

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,10 +17,7 @@ class OrderCreated extends Mailable
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public Order $order) { }
 
     /**
      * Build the message.
@@ -28,6 +26,8 @@ class OrderCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.created');
+        return $this
+        ->subject('Order Created')
+        ->markdown('emails.orders.created');
     }
 }
