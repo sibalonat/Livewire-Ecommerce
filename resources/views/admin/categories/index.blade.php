@@ -5,6 +5,7 @@
                 <div class="grid grid-cols-2 gap-4 p-6 bg-white border-b border-gray-200">
                     <div class="grid col-span-1">
                         <livewire:categories-creation>
+                        {{-- <x-category></x-category> --}}
                         {{-- <livewire:product-gallery :product="$product" /> --}}
                     </div>
                 </div>

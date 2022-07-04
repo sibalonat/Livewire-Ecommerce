@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryShowController;
 use App\Http\Controllers\CheckoutIndexController;
 use App\Http\Controllers\OrderConfirmationIndexController;
 use App\Http\Controllers\OrderIndexController;
+use App\Http\Controllers\TaxanomyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('checkout', CheckoutIndexController::class);
 Route::get('categories/{category:slug}', CategoryShowController::class);
 Route::get('orders/{order:uuid}/confirmation', OrderConfirmationIndexController::class)->name('orders.confirmation');
 Route::get('orders', OrderIndexController::class)->name('orders');
+
+Route::get('categories', [TaxanomyController::class, 'index'])->name('categories.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

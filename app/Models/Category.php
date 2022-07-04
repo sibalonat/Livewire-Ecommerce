@@ -13,6 +13,11 @@ class Category extends Model
     use HasRecursiveRelationships;
     // use Searchable;
 
+    public $fillable = [
+        'title',
+        'slug',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
