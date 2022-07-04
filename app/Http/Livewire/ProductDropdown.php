@@ -13,7 +13,6 @@ class ProductDropdown extends Component
 
     public function getSelectedVariationModelProperty()
     {
-
         if (!$this->selectedVariation) {
             return;
         }

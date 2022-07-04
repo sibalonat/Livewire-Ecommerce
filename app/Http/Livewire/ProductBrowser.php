@@ -68,13 +68,3 @@ class ProductBrowser extends Component
     }
 }
 
-
-
-        // $products = Product::search('')->get();
-        // $options['filter'] = 'category_ids = ' . $this->category->id;
-
-        // dd($filters);
-        // ->toArray();
-        // dd($filters);
-        // return $value->map(fn ($value) => $key . ' = "' . $value . '" AND');
-        // return $meilisearch->search($query);
