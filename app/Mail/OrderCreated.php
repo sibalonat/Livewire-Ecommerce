@@ -2,13 +2,12 @@
 
 namespace App\Mail;
 
-use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderStatusUpdated extends Mailable
+class OrderCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,7 +16,7 @@ class OrderStatusUpdated extends Mailable
      *
      * @return void
      */
-    public function __construct(public Order $order)
+    public function __construct()
     {
         //
     }
@@ -29,6 +28,6 @@ class OrderStatusUpdated extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your order has been updated')->markdown('emails.orders.updated');
+        return $this->markdown('emails.orders.created');
     }
 }
